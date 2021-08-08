@@ -9,7 +9,20 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route('/')
+#@app.route('/') #original
+
+# new from https://github.com/AloysAugustin/captive_portal/blob/master/server.py
+@app.route('/favicon.png')
+def favicon():
+    return app.send_static_file('favicon.png') #let's add a favicon
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return redirect("http://10.0.0.199:80") #+ urllib.urlencode({'orig_url': request.url})) #not sure I need this second part
+#end-new
+
 def index():
     wifi_ap_array = scan_wifi_networks()
     config_hash = config_file_hash()
@@ -110,7 +123,11 @@ def set_ap_client_mode():
     os.system('cp /usr/lib/raspiwifi/reset_device/static_files/apclient_bootstrapper /etc/cron.raspiwifi/')
     os.system('chmod +x /etc/cron.raspiwifi/apclient_bootstrapper')
     os.system('mv /etc/dnsmasq.conf.original /etc/dnsmasq.conf')
-    os.system('mv /etc/dhcpcd.conf.original /etc/dhcpcd.conf')
+    #code adjustment TW
+    if str(dhcpcd_default) == '1'
+        os.system('mv /usr/lib/raspiwifi/reset_device/static_files/dhcpcd.conf.default /etc/dhcpcd.conf') #my line using a slightly modified default dhcpcd.conf file
+    else
+        os.system('mv /etc/dhcpcd.conf.original /etc/dhcpcd.conf') #original line using the original dhcpcd.conf file.
     os.system('reboot')
 
 def update_wpa(wpa_enabled, wpa_key):
