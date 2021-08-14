@@ -7,7 +7,7 @@ a Chromecast or similar device can be configured).
 It can also be used as a method to connect wirelessly point-to-point with your
 Pi when a network is not available or you do not want to connect to one. Just
 leave it in Configuration Mode, connect to the "RaspiWiFi[xxxx] Setup" access
-point. The Pi will be addressable at 10.0.0.199 using all the normal methods you
+point. The Pi will be addressable at 10.0.0.1 using all the normal methods you
 might use while connected through a network.
 
 RaspiWiFi has been
@@ -48,8 +48,6 @@ CONFIGURATION:
 
 == You will be prompted to set a few variables during the Initial Setup script:
 
-Note: these have been disabled and defaults have been hard coded.
-
 ==== "SSID Prefix" [default: "RaspiWiFi Setup"]: This is the prefix of the SSID
       that your Pi will broadcast for you to connect to during
       Configuration Mode (Host Mode). The last four of you Pi's serial number
@@ -74,13 +72,13 @@ Note: these have been disabled and defaults have been hard coded.
       hosting the Configuration App page will be listening on. If you change
       this port make sure to add it to the end of the address when you're
       connecting to it. For example, if you speficiy 12345 as the port number
-      you would navigate to the page like this: http://10.0.0.199:12345 If you
+      you would navigate to the page like this: http://10.0.0.1:12345 If you
       leave the port at the default setting [80] there is no need to specify the
       port when navigating to the page.
 
 ==== "SSL Mode" [default: n]: With this option enabled your RaspiWifi
       configuration page will be sent over an SSL encrypted connection (don't
-      forget the "s" when navigating to https://10.0.0.199:9191 when using
+      forget the "s" when navigating to https://10.0.0.1:9191 when using
       this mode). You will get a certificate error from your web browser when
       connecting. The error is just a warning that the certificate has not been
       verified by a third party but everything will be properly encrypted anyway.
@@ -94,11 +92,7 @@ USAGE:
 == Connect to the "RaspiWiFi[xxxx] Setup" access point using any other WiFi enabled
 device.
 
-
-NOTE: updates to this codebase should make this behave more as a typical captive portal
-So simply connecting to it will cause the user's device browser to pop the login window
-
-== Navigate to [10.0.0.199], [raspiwifisetup.com], or
+== Navigate to [10.0.0.1], [raspiwifisetup.com], or
 [idliketoconfigurethewifionthisdevicenowplease.com] (I was debating whether this
 was funny or not and, yes, it was) using any web browser on the device you
 connected with. (don't forget to manually start with [https://] when using SSL mode)
@@ -121,7 +115,7 @@ enable the new configuration.
 
 == You can also use the Pi in a point-to-point connection mode by leaving it in
 Configuration Mode. All services will be addresible in their normal way at
-10.0.0.199 while connected to the "RaspiWiFi[xxxx] Setup" AP.
+10.0.0.1 while connected to the "RaspiWiFi[xxxx] Setup" AP.
 
 
 
@@ -141,7 +135,7 @@ UNINSTALLATION:
 
 == You can uninstall RaspiWiFi at any time by running:
    
-   sudo python3 /usr/lib/raspiwifi/uninstall.py
+   sudo python3 /usr/lib/raspiwifi/uninstall.python3
 
    You can also run it from the "libs/" directory from a fresh clone if you've 
    installed from a previous version and don't have /usr/lib/raspiwifi/uninstall.py 

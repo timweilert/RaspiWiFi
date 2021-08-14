@@ -14,7 +14,7 @@ def install_prereqs():
 def copy_configs(wpa_enabled_choice):
 	os.system('mkdir /usr/lib/raspiwifi')
 	os.system('mkdir /etc/raspiwifi')
-	os.system('cp -a libs/* /usr/lib/raspiwifi/') #copies all files from the local repo to the /usr/lib/raspiwifi directory
+	os.system('cp -a libs/* /usr/lib/raspiwifi/')
 	os.system('mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.original')
 	os.system('rm -f ./tmp/*')
 	os.system('mv /etc/dnsmasq.conf /etc/dnsmasq.conf.original')
@@ -29,9 +29,7 @@ def copy_configs(wpa_enabled_choice):
 	os.system('cp /usr/lib/raspiwifi/reset_device/static_files/dhcpcd.conf /etc/')
 	os.system('mkdir /etc/cron.raspiwifi')
 	os.system('cp /usr/lib/raspiwifi/reset_device/static_files/aphost_bootstrapper /etc/cron.raspiwifi')
-	os.system('chmod +x /usr/lib/raspiwifi/reset_device/static_files/firewall.sh')
-	os.system('chmod +x /usr/lib/raspiwifi/reset_device/static_files/clean_firewall.sh')
-    os.system('chmod +x /etc/cron.raspiwifi/aphost_bootstrapper')
+	os.system('chmod +x /etc/cron.raspiwifi/aphost_bootstrapper')
 	os.system('echo "# RaspiWiFi Startup" >> /etc/crontab')
 	os.system('echo "@reboot root run-parts /etc/cron.raspiwifi/" >> /etc/crontab')
 	os.system('mv /usr/lib/raspiwifi/reset_device/static_files/raspiwifi.conf /etc/raspiwifi')
@@ -51,5 +49,3 @@ def update_main_config_file(entered_ssid, auto_config_choice, auto_config_delay,
 		os.system('sed -i \'s/ssl_enabled=0/ssl_enabled=1/\' /etc/raspiwifi/raspiwifi.conf')
 	if server_port_choice != "":
 		os.system('sed -i \'s/server_port=80/server_port=' + server_port_choice + '/\' /etc/raspiwifi/raspiwifi.conf')
-    if default_dhcpcd_choice.lower() == "y":
-        os.system('sed -i \'s/default_dhcpcd=0/default_dhcpcd=1/\' /etc/raspiwifi/raspiwifi.conf') #added logic to load dhcpcd default choice in to the configuration file
