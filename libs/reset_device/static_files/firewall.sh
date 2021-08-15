@@ -9,7 +9,7 @@ $IPTABLES -t mangle -A PREROUTING -j internet
 
 $IPTABLES -t mangle -A internet -j MARK --set-mark 99
 
-$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.199 #adjusted for my IP address
+$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.1 #adjusted for my IP address
 
 #$IPTABLES -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
 #$IPTABLES -t filter -A INPUT -p udp --dport 53 -j ACCEPT

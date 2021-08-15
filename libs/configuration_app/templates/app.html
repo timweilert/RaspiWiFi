@@ -15,7 +15,7 @@
       </ul>
     </div>
 
-    <h1>WiFi Setup</h1>
+    <h1>Automatic David Lynch Weather Station WiFi Setup</h1>
     <div class="wifiIcon"></div>
 
     <form action="{{ url_for('save_credentials') }}" method=post>
@@ -34,7 +34,8 @@
 
         <li><label for="wifi_key">Your Wifi password</label></li>
         <li><input type="password" name="wifi_key", class="wifiNetworkInputs"></li>
-
+		<li><label for="zip_code">Your ZIP code</label></li>
+		<li><input type="text" name="zip_code", class="wifiNetworkInputs"></li>
         <input type="submit", class="wifiConnectButton">
       </ul>
     </form>
