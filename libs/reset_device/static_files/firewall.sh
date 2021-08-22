@@ -1,15 +1,15 @@
 #!/bin/bash
 
-IPTABLES=/sbin/iptables
+#IPTABLES=/sbin/iptables
 
 
-$IPTABLES -N internet -t mangle
+sudo iptables -N internet -t mangle
 
-$IPTABLES -t mangle -A PREROUTING -j internet
+sudo iptables -t mangle -A PREROUTING -j internet
 
-$IPTABLES -t mangle -A internet -j MARK --set-mark 99
+sudo iptables -t mangle -A internet -j MARK --set-mark 99
 
-$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.1 #adjusted for my IP address
+sudo iptables -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.1 #adjusted for my IP address
 
 #$IPTABLES -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
 #$IPTABLES -t filter -A INPUT -p udp --dport 53 -j ACCEPT
@@ -17,9 +17,9 @@ $IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-
 
 echo "1" > /proc/sys/net/ipv4/ip_forward
 
-$IPTABLES -A FORWARD -i eth0 -o wlan0 -m state --state ESTABLISHED,RELATED -j ACCEPT
-$IPTABLES -A FORWARD -m mark --mark 99 -j REJECT
-$IPTABLES -A FORWARD -i wlan0 -o eth0 -j ACCEPT
-$IPTABLES -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A FORWARD -m mark --mark 99 -j REJECT
+sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
 #from https://raw.githubusercontent.com/AloysAugustin/captive_portal/master/firewall.sh

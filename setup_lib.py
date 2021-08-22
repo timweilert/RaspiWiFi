@@ -1,4 +1,5 @@
 import os
+import os.path
 
 def install_prereqs():
 	os.system('clear')
@@ -15,9 +16,19 @@ def copy_configs(wpa_enabled_choice):
 	os.system('mkdir /usr/lib/raspiwifi')
 	os.system('mkdir /etc/raspiwifi')
 	os.system('cp -a libs/* /usr/lib/raspiwifi/')
-	os.system('mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.original')
+	
+	if os.path.isfile('/etc/wpa_supplicant/wpa_supplicant.conf'):
+		os.system('mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.original')
+	else:
+		os.system('cp /usr/lib/raspiwifi/reset_device/static_files/wpa_supplicant.conf.default /etc/wpa_supplicant/wpa_supplicant.conf')
+	
 	os.system('rm -f ./tmp/*')
-	os.system('mv /etc/dnsmasq.conf /etc/dnsmasq.conf.original')
+	
+	if os.path.isfile('/etc/dnsmasq.conf'):
+		os.system('mv /etc/dnsmasq.conf /etc/dnsmasq.conf.original')
+	else:
+		os.system('cp /usr/lib/raspiwifi/reset_device/static_files/dnsmasq.conf.default /etc/dnsmasq.conf.original')
+	
 	os.system('cp /usr/lib/raspiwifi/reset_device/static_files/dnsmasq.conf /etc/')
 
 	if wpa_enabled_choice.lower() == "y":
@@ -25,7 +36,11 @@ def copy_configs(wpa_enabled_choice):
 	else:
 		os.system('cp /usr/lib/raspiwifi/reset_device/static_files/hostapd.conf.nowpa /etc/hostapd/hostapd.conf')
 	
-	os.system('mv /etc/dhcpcd.conf /etc/dhcpcd.conf.original')
+	if os.path.isfile('/etc/dhcpcd.conf'):
+		os.system('mv /etc/dhcpcd.conf /etc/dhcpcd.conf.original')
+	else:
+		os.system('cp /usr/lib/raspwifi/reset_device/static_files/dhcpcd.conf.default /etc/dhcpcd.conf.original')
+	
 	os.system('cp /usr/lib/raspiwifi/reset_device/static_files/dhcpcd.conf /etc/')
 	os.system('mkdir /etc/cron.raspiwifi')
 	os.system('cp /usr/lib/raspiwifi/reset_device/static_files/aphost_bootstrapper /etc/cron.raspiwifi')
